@@ -3,6 +3,7 @@ import ThemeToggleButton from "../providers/theme-toggle-button";
 import Link from "next/link";
 import AuthNav from "./auth-nav";
 import { buttonVariants } from "../ui/button";
+import { MiddleNavbar } from "./middle-nav";
 
 const PublicNavbar = () => {
   return (
@@ -37,6 +38,8 @@ const Navbar = async ({ children }: { children?: React.ReactNode }) => {
             <StoreLogo />
           </Link>
         </div>
+        {/* Middle section, links to pages */}
+        <MiddleNavbar className="ml-10" />
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggleButton />
           {children}

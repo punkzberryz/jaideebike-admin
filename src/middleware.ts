@@ -7,9 +7,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   if (
     path !== "/" &&
-    !path.startsWith("/fundamental") &&
-    !path.startsWith("/cook") &&
-    !path.startsWith("/analysis") &&
+    !path.startsWith("/store") &&
     !path.startsWith("/auth/signin") &&
     !path.startsWith("/auth/signup")
   ) {
@@ -39,14 +37,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: [
-    "/",
-    "/fundamental/:path*",
-    "/auth/signin",
-    "/auth/signup",
-    "/cook",
-    "/analysis/:path*",
-  ],
+  matcher: ["/", "/store/:path*"],
 };
 
 const validateRequestMiddleware = async (

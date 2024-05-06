@@ -1,29 +1,29 @@
 "use server";
 
-import { ColorFormSchema } from "@/app/(private)/store/colors/[colorId]/components/color.schema";
-import { validateRequest } from "@/lib/auth/auth";
+import { CategoryFormSchema } from "@/app/(private)/store/categories/[categoryId]/components/category.schema";
+import { Category } from "@prisma/client";
+import { ServerActionError } from "../error.schema";
 import {
   BadRequestError,
   catchErrorForServerActionHelper,
   UnauthorizedError,
 } from "@/lib/error";
 import { prismadb } from "@/lib/prismadb";
-import { ServerActionError } from "../error.schema";
-import { Color } from "@prisma/client";
+import { validateRequest } from "@/lib/auth/auth";
 
-export const createColor = async (
-  data: ColorFormSchema
-): Promise<{ color?: Color } & ServerActionError> => {
+export const createCategory = async (
+  data: CategoryFormSchema
+): Promise<{ category?: Category } & ServerActionError> => {
   try {
     const { user } = await validateRequest();
     if (user?.role !== "ADMIN") {
       throw new UnauthorizedError("Not an admin");
     }
-    // Create color
-    const color = await prismadb.color.create({
+    // Create category
+    const category = await prismadb.category.create({
       data,
     });
-    return { color };
+    return { category };
   } catch (err) {
     const error = catchErrorForServerActionHelper(err);
     return {
@@ -32,23 +32,23 @@ export const createColor = async (
   }
 };
 
-export const editColor = async (
-  data: ColorFormSchema,
-  colorId: number
-): Promise<{ color?: Color } & ServerActionError> => {
+export const editCategory = async (
+  data: CategoryFormSchema,
+  categoryId: number
+): Promise<{ category?: Category } & ServerActionError> => {
   try {
     const { user } = await validateRequest();
     if (user?.role !== "ADMIN") {
       throw new UnauthorizedError("Not an admin");
     }
-    // Edit color
-    const color = await prismadb.color.update({
+    // Edit Category
+    const category = await prismadb.category.update({
       where: {
-        id: colorId,
+        id: categoryId,
       },
       data,
     });
-    return { color };
+    return { category };
   } catch (err) {
     const error = catchErrorForServerActionHelper(err);
     return {
@@ -57,8 +57,8 @@ export const editColor = async (
   }
 };
 
-export const deleteColor = async (
-  colorId: number
+export const deleteCategory = async (
+  categoryId: number
 ): Promise<{} & ServerActionError> => {
   try {
     const { user } = await validateRequest();
@@ -66,19 +66,19 @@ export const deleteColor = async (
       throw new UnauthorizedError("Not an admin");
     }
 
-    // Check if color exists
-    const color = await prismadb.color.findFirst({
+    // Check if category exists
+    const category = await prismadb.category.findFirst({
       where: {
-        id: colorId,
+        id: categoryId,
       },
     });
-    if (!color) {
-      throw new BadRequestError("color not found");
+    if (!category) {
+      throw new BadRequestError("category not found");
     }
-    // Delete color
-    await prismadb.color.delete({
+    // Delete category
+    await prismadb.category.delete({
       where: {
-        id: colorId,
+        id: categoryId,
       },
     });
     return {};

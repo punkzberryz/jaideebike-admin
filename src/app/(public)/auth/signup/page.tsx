@@ -1,8 +1,8 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { metadataHelper } from "@/lib/utils";
 import SignUpForm from "./components/signup-form";
 import Link from "next/link";
+import { metadataHelper } from "@/lib/metadata";
 
 const SignUpPage = async () => {
   return (

@@ -1,6 +1,6 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { metadataHelper } from "@/lib/utils";
 import SignInToast from "./components/signin-toast";
+import { metadataHelper } from "@/lib/metadata";
 
 export default function DashboardPage() {
   return (

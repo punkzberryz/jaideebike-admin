@@ -1,7 +1,7 @@
 "use client";
 import { Color } from "@prisma/client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { ColorFormSchema, colorSchema } from "./color.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -89,7 +89,10 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
     try {
       setLoading(true);
       //Delete action
-      await deleteColor(initialData.id);
+      const { error } = await deleteColor(initialData.id);
+      if (error) {
+        throw new Error(error.message);
+      }
       router.refresh();
       router.push("/store/colors");
       toast.success("Color deleted.");

@@ -1,8 +1,10 @@
 "use client";
 
-import { useIsMounted } from "@/hooks/useIsMounted";
+import { useIsMounted } from "@/hooks/use-is-mounted";
 import { Modal } from "../ui/modal";
 import { Button } from "../ui/button";
+import { ClipLoader, ScaleLoader, SyncLoader } from "react-spinners";
+import { LoadingIcon } from "../loading-icon";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -32,11 +34,21 @@ const AlertModal = ({
       onClose={onClose}
     >
       <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-        <Button disabled={loading} variant="outline" onClick={onClose}>
+        <Button
+          disabled={loading}
+          variant="outline"
+          onClick={onClose}
+          className="w-24"
+        >
           Cancel
         </Button>
-        <Button disabled={loading} variant="destructive" onClick={onConfirm}>
-          Continue
+        <Button
+          disabled={loading}
+          variant="destructive"
+          onClick={onConfirm}
+          className="w-24"
+        >
+          {loading ? <LoadingIcon /> : <span>Continue</span>}
         </Button>
       </div>
     </Modal>

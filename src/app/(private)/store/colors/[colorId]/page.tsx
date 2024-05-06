@@ -1,7 +1,7 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { prismadb } from "@/lib/prismadb";
-import { metadataHelper } from "@/lib/utils";
 import ColorForm from "./components/color-form";
+import { metadataHelper } from "@/lib/metadata";
 
 //For new or edit color page
 

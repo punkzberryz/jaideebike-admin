@@ -1,6 +1,6 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Client from "./components/client";
-import { metadataHelper } from "@/lib/utils";
+import { metadataHelper } from "@/lib/metadata";
 
 const MePage = () => {
   return (
