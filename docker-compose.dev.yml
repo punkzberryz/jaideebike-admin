@@ -1,0 +1,18 @@
+version: '3.9'
+name: jaideebike
+services:
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - data-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    restart: always
+    container_name: ${DB_CONTAINER_NAME}
+
+volumes:
+  data-volume:
