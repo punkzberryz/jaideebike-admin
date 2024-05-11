@@ -1,7 +1,7 @@
 "use server";
 
 import { clearSession, validateRequest } from "@/lib/auth/auth";
-import { catchErrorForServerActionHelper } from "@/lib/error";
+import { catchErrorForServerActionHelper } from "@/lib/error/catch-error-action-helper";
 import { ServerActionError } from "../error.schema";
 
 export const signOut = async (): Promise<{} & ServerActionError> => {

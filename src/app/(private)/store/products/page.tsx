@@ -6,18 +6,18 @@ import { metadataHelper } from "@/lib/metadata";
 import { prismadb } from "@/lib/prismadb";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import { CategoryColumn } from "./components/column";
 import { format } from "date-fns";
 import Client from "./components/client";
-const CATEGORIES_LIMIT = 20;
-const CATEGORIES_PAGE_ID = 1;
-const CategoriesPage = async () => {
-  const categories = await prismadb.category.findMany({
-    take: CATEGORIES_LIMIT,
-    skip: (CATEGORIES_PAGE_ID - 1) * CATEGORIES_LIMIT,
+import { ProductColumn } from "./components/column";
+const PRODUCTS_LIMIT = 20;
+const PRODUCTS_PAGE_ID = 1;
+const ProductsPage = async () => {
+  const products = await prismadb.product.findMany({
+    take: PRODUCTS_LIMIT,
+    skip: (PRODUCTS_PAGE_ID - 1) * PRODUCTS_LIMIT,
   });
 
-  const formattedCategories: CategoryColumn[] = categories.map((item) => ({
+  const formattedProducts: ProductColumn[] = products.map((item) => ({
     id: item.id,
     name: item.name,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
@@ -27,23 +27,23 @@ const CategoriesPage = async () => {
     <MaxWidthWrapper>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Categories (${categories.length})`}
-          description="Manage categories for your products"
+          title={`PRODUCTS (${products.length})`}
+          description="Manage PRODUCTS for your products"
         />
-        <Link href="/store/categories/new" className={buttonVariants({})}>
+        <Link href="/store/products/new" className={buttonVariants({})}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Link>
       </div>
       <Separator />
-      <Client data={formattedCategories} />
+      <Client data={formattedProducts} />
     </MaxWidthWrapper>
   );
 };
 
-export default CategoriesPage;
+export default ProductsPage;
 export const dynamic = "force-dynamic";
 export const metadata = metadataHelper({
-  title: "Categories",
-  description: "Categories page",
-  keywords: ["categories"],
+  title: "PRODUCTS",
+  description: "PRODUCTS page",
+  keywords: ["PRODUCTS"],
 });

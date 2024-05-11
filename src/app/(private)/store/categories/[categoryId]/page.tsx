@@ -1,5 +1,4 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { Heading } from "@/components/ui/heading";
 import { metadataHelper } from "@/lib/metadata";
 import { prismadb } from "@/lib/prismadb";
 import CategoryForm from "./components/category-form";
@@ -28,7 +27,7 @@ const CategoryPage = async ({
 };
 
 export default CategoryPage;
-
+export const dynamic = "force-dynamic";
 export const metadata = metadataHelper({
   title: "Create or edit category",
   description: "Add or edit a category",

@@ -1,5 +1,5 @@
 import { validateRequest } from "@/lib/auth/auth";
-import { UnauthorizedError } from "@/lib/error";
+import { UnauthorizedError } from "@/lib/error/model";
 import { NextRequest, NextResponse } from "next/server";
 import { catchRouteErrorHelper } from "../../helper";
 

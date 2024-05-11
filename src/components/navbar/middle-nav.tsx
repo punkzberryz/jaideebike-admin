@@ -35,6 +35,10 @@ const links: linkProps[] = [
     label: "Dashboard",
   },
   {
+    href: "/store/products",
+    label: "Products",
+  },
+  {
     href: "/store/categories",
     label: "Categories",
   },

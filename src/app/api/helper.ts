@@ -2,7 +2,7 @@ import {
   BadRequestError,
   InternalServerError,
   UnauthorizedError,
-} from "@/lib/error";
+} from "@/lib/error/model";
 import { NextResponse } from "next/server";
 
 export const apiErrorResponse = ({

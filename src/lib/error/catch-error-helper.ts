@@ -3,7 +3,6 @@ import {
   InternalServerError,
   UnauthorizedError,
 } from "./model";
-import { PrismaClientErrorCode } from "../prismadb";
 
 export const catchErrorHelper = (functionaName: string, err: unknown) => {
   if (err instanceof UnauthorizedError) {
@@ -24,52 +23,6 @@ export const catchErrorHelper = (functionaName: string, err: unknown) => {
   }
   console.error(`[ERROR ${functionaName}] ${err}`);
   throw new Error(`[ERROR ${functionaName}] ${err}`);
-};
-
-export const catchErrorForServerActionHelper = (err: unknown) => {
-  const code = (err as any)?.code as string | undefined;
-  if (code === PrismaClientErrorCode.UniqueConstraintViolation) {
-    return {
-      message: "Data already exists in the database",
-      code: 400,
-    };
-  }
-
-  if (err instanceof UnauthorizedError) {
-    return {
-      message: err.message,
-      code: 401,
-    };
-    // throw err;
-  }
-  if (err instanceof BadRequestError) {
-    return {
-      message: err.message,
-      code: 400,
-    };
-  }
-  if (err instanceof InternalServerError) {
-    return {
-      message: err.message,
-      code: 500,
-    };
-  }
-  if (err instanceof Error) {
-    return {
-      message: err.message,
-      code: 500,
-    };
-  }
-  if (typeof err === "string") {
-    return {
-      message: err,
-      code: 500,
-    };
-  }
-  return {
-    message: `Unknown error ${err}`,
-    code: 500,
-  };
 };
 
 export const catchErrorFromServerActionOnClientHelper = (err: {

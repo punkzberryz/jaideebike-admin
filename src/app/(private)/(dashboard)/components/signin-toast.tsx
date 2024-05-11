@@ -29,7 +29,7 @@ const SignInToast = () => {
       router.replace(newQuery);
       setShowToast(true);
     }
-  }, []);
+  }, [redirectedFrom, router, searchParams]);
 
   useEffect(() => {
     if (!showToast) return;

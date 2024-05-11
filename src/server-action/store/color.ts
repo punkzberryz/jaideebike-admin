@@ -2,14 +2,11 @@
 
 import { ColorFormSchema } from "@/app/(private)/store/colors/[colorId]/components/color.schema";
 import { validateRequest } from "@/lib/auth/auth";
-import {
-  BadRequestError,
-  catchErrorForServerActionHelper,
-  UnauthorizedError,
-} from "@/lib/error";
+import { BadRequestError, UnauthorizedError } from "@/lib/error/model";
 import { prismadb } from "@/lib/prismadb";
 import { ServerActionError } from "../error.schema";
 import { Color } from "@prisma/client";
+import { catchErrorForServerActionHelper } from "@/lib/error/catch-error-action-helper";
 
 export const createColor = async (
   data: ColorFormSchema
