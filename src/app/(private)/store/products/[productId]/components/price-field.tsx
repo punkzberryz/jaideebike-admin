@@ -22,7 +22,7 @@ const PriceField = ({ form }: PriceFieldProps) => {
         <FormItem>
           <FormLabel>Price</FormLabel>
           <FormControl>
-            <Input placeholder="Product price" {...field} />
+            <Input placeholder="Product price" {...field} type="number" />
           </FormControl>
           <FormMessage />
         </FormItem>

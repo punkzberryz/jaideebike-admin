@@ -47,9 +47,6 @@ const Client = ({ data }: ClientProps) => {
 
   return (
     <div>
-      {urls.map((url) => (
-        <p key={url}>{url}</p>
-      ))}
       <AlertModal
         title="Delete Color"
         description="Are you sure you want to delete this color?"

@@ -25,7 +25,6 @@ import IsFeaturedAndIsArchivedFields from "./is-featured-and-is-archived-fields"
 import ImageField from "./image-field";
 import { useImageUploadReducer } from "@/components/image-input/use-image-upload-reducer";
 import DescriptionField from "./description-field";
-import queryString from "query-string";
 import { useImageToBeDeletedStore } from "@/hooks/use-image-to-be-deleteted-store";
 
 interface ProductFormProps {
@@ -58,6 +57,13 @@ const ProductForm = ({ initialData, categories, colors }: ProductFormProps) => {
     },
   });
   const onSubmit = async (data: ProductFormSchema) => {
+    const price = parseFloat(data.price);
+    if (isNaN(price)) {
+      toast.error("Price must be a number.");
+      form.setError("price", { message: "Price must be a number." });
+      return;
+    }
+
     setLoading(true);
     let productId: string;
     //check if image is still uploading
@@ -87,6 +93,9 @@ const ProductForm = ({ initialData, categories, colors }: ProductFormProps) => {
       if (initialData) {
         const images = imageFiles.map((file) => ({ url: file.getUrl }));
         const { product, error } = await editProduct(
+          //note that images that is not in the form will be deleted in the database
+          //becase image has a product id inside, so when we edit the product,
+          //prisma will delete the image that is not included in data.images
           { ...data, images },
           initialData.id
         );
@@ -96,38 +105,11 @@ const ProductForm = ({ initialData, categories, colors }: ProductFormProps) => {
         }
         productId = product.id;
 
-        //delete image that are not in the form
+        //delete image that are not in the form but in the initialData.image
         const toBeDeletedImage = initialData.images.filter(
           (image) => !imageFiles.find((file) => file.name === image.id)
         );
-
-        if (toBeDeletedImage.length > 0) {
-          console.log("Images to be deleted", toBeDeletedImage);
-          const url = queryString.stringifyUrl({
-            url: "/api/image",
-            query: { ids: toBeDeletedImage.map((image) => image.id) },
-          });
-          //we dont need to wait for the response
-          fetch(url, {
-            method: "DELETE",
-          })
-            .then((resp) => {
-              if (!resp.ok) {
-                console.error(
-                  "Failed to delete image in database, response not ok"
-                );
-                resp.json().then(console.error);
-                return;
-              }
-              console.log("Image deleted in database");
-              //add to be deleted image to store
-              toBeDeletedImage.forEach((image) => {
-                console.log("Image deleted in store", image.url);
-                addUrl(image.url);
-              });
-            })
-            .catch(console.error);
-        }
+        toBeDeletedImage.forEach((image) => addUrl(image.url));
       } else {
         //create product
         const images = imageFiles.map((file) => ({ url: file.getUrl }));
@@ -168,6 +150,10 @@ const ProductForm = ({ initialData, categories, colors }: ProductFormProps) => {
       if (error) {
         throw new Error(error.message);
       }
+      //delete image
+      initialData.images.forEach((image) => {
+        addUrl(image.url);
+      });
       router.refresh();
       router.push("/store/products");
       toast.success("Product deleted.");

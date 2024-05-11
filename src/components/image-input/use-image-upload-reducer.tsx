@@ -59,10 +59,3 @@ export const useImageUploadReducer = () => {
     }
   }, []);
 };
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg"];
-function validateFileTypeAndSize(file: File) {
-  let valid = ALLOWED_FILE_TYPES.includes(file.type);
-  valid = valid && file.size <= MAX_FILE_SIZE;
-  return valid;
-}

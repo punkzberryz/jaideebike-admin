@@ -27,8 +27,8 @@ const ProductsPage = async () => {
     <MaxWidthWrapper>
       <div className="flex items-center justify-between">
         <Heading
-          title={`PRODUCTS (${products.length})`}
-          description="Manage PRODUCTS for your products"
+          title={`Products (${products.length})`}
+          description="Manage Products for your products"
         />
         <Link href="/store/products/new" className={buttonVariants({})}>
           <Plus className="mr-2 h-4 w-4" /> Add New
