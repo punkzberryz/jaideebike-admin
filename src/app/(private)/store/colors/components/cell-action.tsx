@@ -1,8 +1,7 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ColorColumn } from "./column";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   DropdownMenu,

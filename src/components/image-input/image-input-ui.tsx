@@ -80,33 +80,27 @@ export const ImageInputWithImageFiles = ({
         <div className="align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden sm:rounded-lg">
             <table className="min-w-full divide-y dark:divide-slate-600">
-              <thead className="bg-slate-800">
+              <thead className="bg-slate-200 dark:bg-slate-800">
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium dark:text-slate-300  uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Preview
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium dark:text-slate-300  uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300  uppercase tracking-wider"
                   >
                     Name
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium dark:text-slate-300  uppercase tracking-wider"
-                  >
-                    Size
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium dark:text-slate-300  uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300  uppercase tracking-wider"
                   ></th>
                 </tr>
               </thead>
-              <tbody className="relative divide-y dark:divide-slate-600">
+              <tbody className="relative divide-y divide-slate-400 dark:divide-slate-600">
                 {input.map((file, index) => (
                   <ImageUploadDisplayItem
                     key={index}
@@ -119,9 +113,9 @@ export const ImageInputWithImageFiles = ({
             </table>
             <label
               htmlFor="dropzone-file-images-present"
-              className="relative cursor-pointer group hover:border-gray-500 hover:dark:bg-slate-800 transition flex justify-center py-4 border-t border-slate-600"
+              className="relative cursor-pointer group hover:border-gray-500 hover:bg-slate-200 hover:dark:bg-slate-800 transition flex justify-center py-4 border-t border-slate-400 dark:border-slate-600"
             >
-              <PlusIcon className="w-12 h-12 stroke-1 group-hover:fill-slate-400 transition fill-slate-500" />
+              <PlusIcon className="w-12 h-12 stroke-1 group-hover:text-slate-600 group-hover:dark:text-slate-400 transition text-slate-500" />
               <input
                 multiple
                 onChange={handleChange}
@@ -146,7 +140,7 @@ export const ImageInputWithImageFiles = ({
 };
 
 const ImageUploadDisplayItem = ({
-  file: { name, isError, getUrl, size, isLoading },
+  file: { name, isError, getUrl, isLoading },
   imageDispatch,
   index,
 }: {
@@ -157,7 +151,7 @@ const ImageUploadDisplayItem = ({
   return (
     <tr>
       {/* PREVIEW */}
-      <td className="px-6 py-4 whitespace-nowrap text-sm dark:text-slate-400">
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400">
         <div className="relative flex h-12 w-20">
           {isError ? (
             <div className="flex w-full justify-center items-center">
@@ -174,7 +168,7 @@ const ImageUploadDisplayItem = ({
         </div>
       </td>
       {/* NAME */}
-      <td className="px-6 py-4 truncate whitespace-normal text-sm font-medium dark:text-slate-400">
+      <td className="px-6 py-4 truncate whitespace-normal text-sm font-medium text-slate-600 dark:text-slate-400">
         <div className="max-w-20">
           <p
             className={cn("dark:text-slate-300", {
@@ -185,19 +179,8 @@ const ImageUploadDisplayItem = ({
           </p>
         </div>
       </td>
-      {/* SIZE */}
-      <td
-        className={cn(
-          "px-6 py-4 whitespace-nowrap text-sm dark:text-slate-400",
-          {
-            "dark:text-red-500": isError,
-          }
-        )}
-      >
-        {(size / 1000).toFixed(0)} KB
-      </td>
       {/* ACTION BUTTONS */}
-      <td className="px-6 py-4 whitespace-nowrap text-sm dark:text-slate-400 ">
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400 ">
         {isLoading ? (
           <Loader2 className="animate-spin w-5 h-5" />
         ) : (
@@ -241,7 +224,6 @@ const ImageActionButtons = ({
           <ArrowDown className="mr-2 h-4 w-4" />
           Move Down
         </DropdownMenuItem>
-
         <DropdownMenuItem
           onClick={() =>
             imageDispatch({

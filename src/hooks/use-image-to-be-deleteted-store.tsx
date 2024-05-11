@@ -14,12 +14,12 @@ import { persist } from "zustand/middleware";
     by doing this, user can upload image individually before updating the database
     this will relax the need to uploading huge data at once
 */
-interface useImageUploadStore {
+interface useImageToBeDeletedStore {
   urls: string[];
   addUrl: (url: string) => void;
   removeUrl: (url: string) => void;
 }
-export const useImageUploadStore = create<useImageUploadStore>()(
+export const useImageToBeDeletedStore = create<useImageToBeDeletedStore>()(
   persist(
     (set) => ({
       urls: [],

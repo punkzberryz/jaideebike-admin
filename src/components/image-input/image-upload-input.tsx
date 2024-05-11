@@ -5,11 +5,11 @@ import { ImageInput, ImageInputWithImageFiles } from "./image-input-ui";
 import { ImageInputAction, ImageState, namingFile } from "./image-input-type";
 import toast from "react-hot-toast";
 import { cloudinaryFolderName } from "@/lib/query/image/folder-name";
-import { useImageUploadStore } from "@/hooks/use-image-upload-store";
 import {
   getCloudinaryUploadSignature,
   uploadImageCloudinary,
 } from "@/lib/query/image/image";
+import { useImageToBeDeletedStore } from "@/hooks/use-image-to-be-deleteted-store";
 
 interface ImageUploadInputProps {
   imageState: ImageState;
@@ -23,7 +23,7 @@ const ImageUploadInput = ({
   folder,
 }: ImageUploadInputProps) => {
   const [dragActive, setDragActive] = useState(false);
-  const { addUrl } = useImageUploadStore();
+  const { addUrl } = useImageToBeDeletedStore();
 
   const noInput = input.length === 0;
   const handleDrag = (e: React.DragEvent<HTMLFormElement | HTMLDivElement>) => {
@@ -58,7 +58,6 @@ const ImageUploadInput = ({
               file: {
                 getUrl: result.url ?? "",
                 name: namingFile(file.name, index),
-                size: file.size,
                 isError: result.url === undefined,
                 isLoading: false,
               },
@@ -70,7 +69,7 @@ const ImageUploadInput = ({
         });
       });
     },
-    [folder, imageDispatch]
+    [folder, imageDispatch, addUrl]
   );
   // triggers when file is selected with click
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

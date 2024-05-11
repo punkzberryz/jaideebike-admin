@@ -6,19 +6,19 @@ import { AlertModal } from "@/components/modals/alert-model";
 import { useEffect, useState } from "react";
 import { useModal } from "@/hooks/use-modal-store";
 import { useRouter } from "next/navigation";
-import { useImageUploadStore } from "@/hooks/use-image-upload-store";
 import {
   deleteImageCloudinary,
   getCloudinaryPublicId,
 } from "@/lib/query/image/image";
 import { cloudinaryFolderName } from "@/lib/query/image/folder-name";
+import { useImageToBeDeletedStore } from "@/hooks/use-image-to-be-deleteted-store";
 interface ClientProps {
   data: ProductColumn[];
 }
 const Client = ({ data }: ClientProps) => {
   const [loading, setLoading] = useState(false);
   const { isOpen, onClose, onConfirm } = useModal();
-  const { removeUrl, urls } = useImageUploadStore();
+  const { removeUrl, urls } = useImageToBeDeletedStore();
   const router = useRouter();
   const onConfirmDelete = () => {
     setLoading(true);

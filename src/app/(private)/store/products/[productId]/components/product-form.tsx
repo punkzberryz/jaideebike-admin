@@ -26,7 +26,7 @@ import ImageField from "./image-field";
 import { useImageUploadReducer } from "@/components/image-input/use-image-upload-reducer";
 import DescriptionField from "./description-field";
 import queryString from "query-string";
-import { useImageUploadStore } from "@/hooks/use-image-upload-store";
+import { useImageToBeDeletedStore } from "@/hooks/use-image-to-be-deleteted-store";
 
 interface ProductFormProps {
   initialData: (Product & { images: Image[] }) | null;
@@ -35,10 +35,9 @@ interface ProductFormProps {
 }
 const ProductForm = ({ initialData, categories, colors }: ProductFormProps) => {
   const router = useRouter();
-  const { addUrl, removeUrl } = useImageUploadStore();
+  const { addUrl, removeUrl } = useImageToBeDeletedStore();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [imageFiles, imageDispatch] = useImageUploadReducer();
 
   const title = initialData ? "Edit Product" : "Create Product";
@@ -184,7 +183,6 @@ const ProductForm = ({ initialData, categories, colors }: ProductFormProps) => {
     const initState = initialData?.images.map((image) => ({
       getUrl: image.url,
       name: image.id,
-      size: 0,
       isError: false,
       isLoading: false,
     }));

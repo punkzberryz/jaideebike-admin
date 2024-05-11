@@ -1,6 +1,6 @@
 "use client";
 import { Color } from "@prisma/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { ColorFormSchema, colorSchema } from "./color.schema";
@@ -30,7 +30,6 @@ interface ColorFormProps {
   initialData: Color | null;
 }
 const ColorForm = ({ initialData }: ColorFormProps) => {
-  const params = useSearchParams();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);

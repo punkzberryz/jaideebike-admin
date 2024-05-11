@@ -1,7 +1,6 @@
 export interface FileWithUrl {
   name: string;
   getUrl: string;
-  size: number;
   isError: boolean;
   isLoading: boolean;
 }

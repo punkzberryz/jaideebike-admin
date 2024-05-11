@@ -1,6 +1,6 @@
 "use client";
 import { Category } from "@prisma/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { CategoryFormSchema, categorySchema } from "./category.schema";
 import { FieldErrors, useForm } from "react-hook-form";
@@ -29,7 +29,6 @@ interface CategoryFormProps {
   initialData: Category | null;
 }
 const CategoryForm = ({ initialData }: CategoryFormProps) => {
-  const params = useSearchParams();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
