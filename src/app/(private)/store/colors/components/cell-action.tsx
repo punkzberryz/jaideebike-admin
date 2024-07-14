@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import { deleteColor } from "@/server-action/store/color";
-import { delay } from "@/lib/utils";
 
 interface CellActionProps {
   data: ColorColumn;
